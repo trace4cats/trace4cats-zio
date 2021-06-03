@@ -6,6 +6,12 @@
 
 [ZIO](https://zio.dev) instances for [Trace4Cats](https://github.com/trace4cats/trace4cats) typeclasses.
 
+Add it to your `build.sbt`:
+
+```scala
+"io.janstenpickle" %% "trace4cats-zio" % "<version>"
+```
+
 ## Contributing
 
 This project supports the [Scala Code of Conduct](https://typelevel.org/code-of-conduct.html) and aims that its channels
