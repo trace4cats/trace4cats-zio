@@ -3,6 +3,8 @@ ThisBuild / crossScalaVersions := Seq(Dependencies.Versions.scala213, Dependenci
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.11")
 
+ThisBuild / githubWorkflowBuildPreamble += WorkflowStep.Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"))
+
 ThisBuild / githubWorkflowPublishTargetBranches := Seq(RefPredicate.Equals(Ref.Branch("master")))
 ThisBuild / githubWorkflowPublish := Seq(
   WorkflowStep.Sbt(
