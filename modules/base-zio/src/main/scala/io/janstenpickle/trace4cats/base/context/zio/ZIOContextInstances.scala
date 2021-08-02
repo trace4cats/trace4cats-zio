@@ -45,6 +45,10 @@ trait ZIOContextInstancesLowPriority {
 
       def lift[A](la: ZIO[R, E, A]): ZIO[R1, E, A] = la
       def askUnlift: ZIO[R1, E, ZIO[R1, E, *] ~> ZIO[R, E, *]] =
-        ZIO.access[R1](r1 => λ[ZIO[R1, E, *] ~> ZIO[R, E, *]](_.provide(r1)))
+        ZIO.access[R1](r1 =>
+          new (ZIO[R1, E, *] ~> ZIO[R, E, *]) {
+            def apply[A](fa: ZIO[R1, E, A]): ZIO[R, E, A] = fa.provide(r1)
+          }
+        )
     }
 }
