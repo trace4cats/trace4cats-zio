@@ -5,7 +5,7 @@ import io.janstenpickle.trace4cats.base.context._
 import io.janstenpickle.trace4cats.base.context.zio.instances._
 
 object ZIOInstanceSummonTest {
-  type R
+  class R()
   type E
   type F[x] = ZIO[R, E, x]
   type Low[x] = IO[E, x]

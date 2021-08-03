@@ -12,7 +12,7 @@ object ZIOTraceInstanceSummonTest {
 
   type ZSpan = Has[Span[Task]]
   type G[x] = RIO[ZEnv with ZSpan, x]
-  implicit val rioLayeredLocalSpan: Local[G, Span[Task]] = zioProvideSome
+  implicit val rioLayeredLocalSpan: Local[G, Span[Task]] = zioProvideSome[ZEnv, ZEnv with ZSpan, Throwable, Span[Task]]
   implicitly[Trace[G]]
 
   type H[x] = RIO[Env, x]
