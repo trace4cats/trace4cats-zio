@@ -6,9 +6,8 @@ object Dependencies {
     val scala213 = "2.13.6"
     val scala3 = "3.0.1"
 
-    val trace4cats = "0.12.0-RC2+18-2de6b68e"
+    val trace4cats = "0.12.0"
 
-    val cats = "2.6.1"
     val zioInterop = "3.1.1.0"
 
     val kindProjector = "0.13.0"
