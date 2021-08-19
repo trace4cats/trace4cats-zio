@@ -19,9 +19,9 @@ package zio.interop
 import org.scalacheck._
 import zio._
 
-/** Temporary fork of zio.GenIO that overrides `genParallel` with ZManaged-based code
-  * instead of `io.zipPar(parIo).map(_._1)`
-  * because ZIP-PAR IS NON-DETERMINISTIC IN ITS SPAWNED EC TASKS (required for TestContext equality)
+/** Temporary fork of zio.GenIO that overrides `genParallel` with ZManaged-based code instead of
+  * `io.zipPar(parIo).map(_._1)` because ZIP-PAR IS NON-DETERMINISTIC IN ITS SPAWNED EC TASKS (required for TestContext
+  * equality)
   */
 trait GenIOInteropCats {
 
@@ -59,9 +59,9 @@ trait GenIOInteropCats {
   def genUIO[A: Arbitrary]: Gen[UIO[A]] =
     Gen.oneOf(genSuccess[Nothing, A], genIdentityTrans(genSuccess[Nothing, A]))
 
-  /** Given a generator for `IO[E, A]`, produces a sized generator for `IO[E, A]` which represents a transformation,
-    * by using some random combination of the methods `map`, `flatMap`, `mapError`, and any other method that does not change
-    * the success/failure of the value, but may change the value itself.
+  /** Given a generator for `IO[E, A]`, produces a sized generator for `IO[E, A]` which represents a transformation, by
+    * using some random combination of the methods `map`, `flatMap`, `mapError`, and any other method that does not
+    * change the success/failure of the value, but may change the value itself.
     */
   def genLikeTrans[E: Arbitrary: Cogen, A: Arbitrary: Cogen](gen: Gen[IO[E, A]]): Gen[IO[E, A]] = {
     val functions: IO[E, A] => Gen[IO[E, A]] = io =>
@@ -75,8 +75,9 @@ trait GenIOInteropCats {
     gen.flatMap(io => genTransformations(functions)(io))
   }
 
-  /** Given a generator for `IO[E, A]`, produces a sized generator for `IO[E, A]` which represents a transformation,
-    * by using methods that can have no effect on the resulting value (e.g. `map(identity)`, `io.race(never)`, `io.par(io2).map(_._1)`).
+  /** Given a generator for `IO[E, A]`, produces a sized generator for `IO[E, A]` which represents a transformation, by
+    * using methods that can have no effect on the resulting value (e.g. `map(identity)`, `io.race(never)`,
+    * `io.par(io2).map(_._1)`).
     */
   def genIdentityTrans[E, A: Arbitrary](gen: Gen[IO[E, A]]): Gen[IO[E, A]] = {
     val functions: IO[E, A] => Gen[IO[E, A]] = io =>
