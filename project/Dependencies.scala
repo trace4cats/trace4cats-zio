@@ -10,7 +10,7 @@ object Dependencies {
 
     val zioInterop = "3.1.1.0"
 
-    val kindProjector = "0.13.0"
+    val kindProjector = "0.13.1"
     val betterMonadicFor = "0.3.1"
   }
 
