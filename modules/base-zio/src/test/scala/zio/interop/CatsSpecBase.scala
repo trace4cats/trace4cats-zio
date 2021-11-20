@@ -41,8 +41,7 @@ private[zio] trait CatsSpecBase
     with FunSuiteDiscipline
     with Configuration
     with TestInstances
-    with CatsSpecBaseLowPriority
-    with zio.interop.PlatformSpecific {
+    with CatsSpecBaseLowPriority {
 
   def checkAllAsync(name: String, f: Ticker => Laws#RuleSet): Unit =
     checkAll(name, f(Ticker()))

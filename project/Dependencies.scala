@@ -8,7 +8,8 @@ object Dependencies {
 
     val trace4cats = "0.12.0"
 
-    val zioInterop = "3.2.9.0"
+    val catsEffect = "3.2.9"
+    val zioInteropCats = "3.2.9.0"
 
     val kindProjector = "0.13.2"
     val betterMonadicFor = "0.3.1"
@@ -19,7 +20,8 @@ object Dependencies {
   lazy val trace4catsInject = "io.janstenpickle"   %% "trace4cats-inject"    % Versions.trace4cats
   lazy val trace4catsTestkit = "io.janstenpickle"  %% "trace4cats-testkit"   % Versions.trace4cats
 
-  lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % Versions.zioInterop
+  lazy val catsEffect = "org.typelevel" %% "cats-effect"      % Versions.catsEffect
+  lazy val zioInteropCats = "dev.zio"   %% "zio-interop-cats" % Versions.zioInteropCats
 
   lazy val kindProjector = ("org.typelevel" % "kind-projector"     % Versions.kindProjector).cross(CrossVersion.full)
   lazy val betterMonadicFor = "com.olegpy" %% "better-monadic-for" % Versions.betterMonadicFor

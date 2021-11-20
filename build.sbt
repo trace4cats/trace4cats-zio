@@ -33,7 +33,7 @@ lazy val `base-zio` =
     .settings(publishSettings)
     .settings(
       name := "trace4cats-base-zio",
-      libraryDependencies ++= Seq(Dependencies.zioInterop, Dependencies.trace4catsBase),
+      libraryDependencies ++= Seq(Dependencies.zioInteropCats, Dependencies.trace4catsBase, Dependencies.catsEffect),
       libraryDependencies ++= Seq(Dependencies.trace4catsBaseLaws, Dependencies.trace4catsTestkit).map(_ % Test)
     )
 
