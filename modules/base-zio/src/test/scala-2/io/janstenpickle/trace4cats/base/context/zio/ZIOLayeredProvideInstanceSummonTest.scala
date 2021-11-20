@@ -5,7 +5,7 @@ import io.janstenpickle.trace4cats.base.context._
 import io.janstenpickle.trace4cats.base.context.zio.instances._
 
 // These summon tests work only on Scala 2.
-// As of Scala 3.0.1, the compiler fails to provide evidence for `(R & Has[C]) <:< R1`.
+// As of Scala 3.1.0, the compiler fails to provide evidence for `(R & Has[C]) <:< R1`.
 // In user code the instances must be summoned explicitly via `zioProvideSome`.
 object ZIOLayeredProvideInstanceSummonTest {
   class R()
