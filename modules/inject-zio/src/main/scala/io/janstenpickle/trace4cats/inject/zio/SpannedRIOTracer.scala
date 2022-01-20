@@ -29,7 +29,7 @@ class SpannedRIOTracer[Env <: Clock with Blocking with Has[Span[RIO[Clock with B
       span <- ZIO.service[Span[RIO[Clock with Blocking, *]]]
       result <- span
         .child(name, kind, errorHandler)
-        .use { childSpan: Span[RIO[Clock with Blocking, *]] =>
+        .use { childSpan =>
           val deps = env ++ Has(childSpan)
           fa.provide(deps)
         }
