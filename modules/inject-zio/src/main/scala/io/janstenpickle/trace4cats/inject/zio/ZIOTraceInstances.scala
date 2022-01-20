@@ -6,7 +6,11 @@ import zio.clock.Clock
 import zio.{Has, RIO}
 
 trait ZIOTraceInstances {
-  implicit def spannedRIOTrace[R <: Clock with Blocking with Has[Span[RIO[Clock with Blocking, *]]]]: SpannedRIOTracer[
-    R
-  ] = new SpannedRIOTracer[R]
+  implicit val spannedRIOTrace: SpannedRIOTracer = new SpannedRIOTracer
+}
+
+trait ZIOHasTraceInstances {
+  implicit def spannedEnvRIOTrace[
+    R <: Clock with Blocking with Has[Span[RIO[Clock with Blocking, *]]]
+  ]: SpannedEnvRIOTracer[R] = new SpannedEnvRIOTracer[R]
 }

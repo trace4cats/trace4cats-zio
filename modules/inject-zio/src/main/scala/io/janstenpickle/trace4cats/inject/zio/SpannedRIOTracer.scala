@@ -4,54 +4,33 @@ import cats.syntax.show._
 import io.janstenpickle.trace4cats.inject.Trace
 import io.janstenpickle.trace4cats.model.{AttributeValue, SpanKind, SpanStatus, TraceHeaders}
 import io.janstenpickle.trace4cats.{ErrorHandler, Span, ToHeaders}
-import zio.blocking.Blocking
-import zio.clock.Clock
 import zio.interop.catz._
-import zio.{Has, RIO, ZIO}
+import zio.{RIO, Task, ZIO}
 
-class SpannedRIOTracer[Env <: Clock with Blocking with Has[Span[RIO[Clock with Blocking, *]]]]
-    extends Trace[SpannedRIO[Env, *]] {
-  override def put(key: String, value: AttributeValue): SpannedRIO[Env, Unit] =
-    ZIO
-      .service[Span[RIO[Clock with Blocking, *]]]
-      .flatMap(_.put(key, value))
+class SpannedRIOTracer extends Trace[SpannedRIO] {
+  override def put(key: String, value: AttributeValue): SpannedRIO[Unit] =
+    ZIO.environment[Span[Task]].flatMap(_.put(key, value))
 
-  override def putAll(fields: (String, AttributeValue)*): SpannedRIO[Env, Unit] =
-    ZIO
-      .service[Span[RIO[Clock with Blocking, *]]]
-      .flatMap(_.putAll(fields: _*))
+  override def putAll(fields: (String, AttributeValue)*): SpannedRIO[Unit] =
+    ZIO.environment[Span[Task]].flatMap(_.putAll(fields: _*))
 
-  override def span[A](name: String, kind: SpanKind, errorHandler: ErrorHandler)(
-    fa: SpannedRIO[Env, A]
-  ): SpannedRIO[Env, A] = {
-    for {
-      env <- ZIO.environment[Env]
-      span <- ZIO.service[Span[RIO[Clock with Blocking, *]]]
-      result <- span
-        .child(name, kind, errorHandler)
-        .use { (childSpan: Span[RIO[Clock with Blocking, *]]) =>
-          val deps = env ++ Has(childSpan)
-          fa.provide(deps)
-        }
-    } yield result
-  }
+  override def span[A](name: String, kind: SpanKind, errorHandler: ErrorHandler)(fa: SpannedRIO[A]): SpannedRIO[A] =
+    ZIO.environment[Span[Task]].flatMap(_.child(name, kind, errorHandler).use(fa.provide))
 
-  override def headers(toHeaders: ToHeaders): SpannedRIO[Env, TraceHeaders] =
-    ZIO
-      .service[Span[RIO[Clock with Blocking, *]]]
-      .map(s => toHeaders.fromContext(s.context))
+  override def headers(toHeaders: ToHeaders): SpannedRIO[TraceHeaders] =
+    ZIO.environment[Span[Task]].map { s =>
+      toHeaders.fromContext(s.context)
+    }
 
-  override def setStatus(status: SpanStatus): SpannedRIO[Env, Unit] =
-    ZIO
-      .service[Span[RIO[Clock with Blocking, *]]]
-      .flatMap(_.setStatus(status))
+  override def setStatus(status: SpanStatus): SpannedRIO[Unit] =
+    ZIO.environment[Span[Task]].flatMap(_.setStatus(status))
 
-  override def traceId: SpannedRIO[Env, Option[String]] =
-    ZIO.service[Span[RIO[Clock with Blocking, *]]].map { s =>
+  override def traceId: SpannedRIO[Option[String]] =
+    ZIO.environment[Span[Task]].map { s =>
       Some(s.context.traceId.show)
     }
 
-  def lens[R](f: R => Span[RIO[R, *]], g: (R, Span[RIO[R, *]]) => R): Trace[RIO[R, *]] =
+  def lens[R](f: R => Span[Task], g: (R, Span[Task]) => R): Trace[RIO[R, *]] =
     new Trace[RIO[R, *]] {
       override def put(key: String, value: AttributeValue): RIO[R, Unit] =
         ZIO.environment[R].flatMap { r =>
