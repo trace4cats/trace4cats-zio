@@ -6,7 +6,7 @@ object Dependencies {
     val scala213 = "2.13.8"
     val scala3 = "3.1.1"
 
-    val trace4cats = "0.13.0"
+    val trace4cats = "0.13.1"
 
     val catsEffect = "3.3.9"
     val zioInteropCats = "3.2.9.1"
