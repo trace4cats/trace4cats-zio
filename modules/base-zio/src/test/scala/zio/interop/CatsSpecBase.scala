@@ -114,7 +114,7 @@ private[zio] trait CatsSpecBase
     Eq.allEqual
 
   implicit val eqForCauseOfNothing: Eq[Cause[Nothing]] =
-    (x, y) => (x.interrupted && y.interrupted) || x == y
+    (x, y) => x.interrupted && y.interrupted || x == y
 
   implicit def eqForExitOfNothing[A: Eq]: Eq[Exit[Nothing, A]] = {
     case (Exit.Success(x), Exit.Success(y)) => x.eqv(y)
@@ -125,7 +125,7 @@ private[zio] trait CatsSpecBase
   implicit def eqForUIO[A: Eq](implicit ticker: Ticker): Eq[UIO[A]] = { (uio1, uio2) =>
     val exit1 = unsafeRun(uio1)
     val exit2 = unsafeRun(uio2)
-    (exit1.eqv(exit2)) || {
+    exit1.eqv(exit2) || {
       println(s"$exit1 was not equal to $exit2")
       false
     }
