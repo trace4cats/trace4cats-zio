@@ -34,10 +34,10 @@ lazy val root = (project in file("."))
   .aggregate(`base-zio`, `inject-zio`)
 
 lazy val `base-zio` =
-  (project in file("modules/base-zio"))
+  (project in file("modules/context-utils-zio"))
     .settings(publishSettings)
     .settings(
-      name := "trace4cats-base-zio",
+      name := "trace4cats-context-utils-zio",
       libraryDependencies ++= Seq(
         Dependencies.zioInteropCats,
         Dependencies.trace4catsContextUtils,
@@ -46,7 +46,7 @@ lazy val `base-zio` =
       libraryDependencies ++= Seq(Dependencies.trace4catsContextUtilsLaws, Dependencies.trace4catsTestkit).map(_ % Test)
     )
 
-lazy val `inject-zio` = (project in file("modules/inject-zio"))
+lazy val `inject-zio` = (project in file("modules/zio"))
   .settings(publishSettings)
-  .settings(name := "trace4cats-inject-zio", libraryDependencies ++= Seq(Dependencies.trace4catsCore))
+  .settings(name := "trace4cats-zio", libraryDependencies ++= Seq(Dependencies.trace4catsCore))
   .dependsOn(`base-zio`)
