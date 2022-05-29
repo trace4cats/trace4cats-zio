@@ -6,7 +6,7 @@ object Dependencies {
     val scala213 = "2.13.8"
     val scala3 = "3.1.2"
 
-    val trace4cats = "0.13.1"
+    val trace4cats = "0.13.1+67-a7d9b849"
 
     val catsEffect = "3.3.12"
     val zioInteropCats = "3.2.9.1"
@@ -15,10 +15,10 @@ object Dependencies {
     val betterMonadicFor = "0.3.1"
   }
 
-  lazy val trace4catsBase = "io.janstenpickle"     %% "trace4cats-base"      % Versions.trace4cats
-  lazy val trace4catsBaseLaws = "io.janstenpickle" %% "trace4cats-base-laws" % Versions.trace4cats
-  lazy val trace4catsInject = "io.janstenpickle"   %% "trace4cats-inject"    % Versions.trace4cats
-  lazy val trace4catsTestkit = "io.janstenpickle"  %% "trace4cats-testkit"   % Versions.trace4cats
+  lazy val trace4catsContextUtils = "io.janstenpickle"     %% "trace4cats-context-utils"      % Versions.trace4cats
+  lazy val trace4catsContextUtilsLaws = "io.janstenpickle" %% "trace4cats-context-utils-laws" % Versions.trace4cats
+  lazy val trace4catsCore = "io.janstenpickle"             %% "trace4cats-core"               % Versions.trace4cats
+  lazy val trace4catsTestkit = "io.janstenpickle"          %% "trace4cats-testkit"            % Versions.trace4cats
 
   lazy val catsEffect = "org.typelevel" %% "cats-effect"      % Versions.catsEffect
   lazy val zioInteropCats = "dev.zio"   %% "zio-interop-cats" % Versions.zioInteropCats
