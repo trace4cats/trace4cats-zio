@@ -2,13 +2,13 @@ import sbt._
 
 object Dependencies {
   object Versions {
-    val scala212 = "2.12.15"
+    val scala212 = "2.12.16"
     val scala213 = "2.13.8"
     val scala3 = "3.1.3"
 
-    val trace4cats = "0.13.1+67-a7d9b849"
+    val trace4cats = "0.13.1+93-3b55f15a"
 
-    val catsEffect = "3.3.12"
+    val catsEffect = "3.3.14"
     val zioInteropCats = "3.2.9.1"
 
     val kindProjector = "0.13.2"
