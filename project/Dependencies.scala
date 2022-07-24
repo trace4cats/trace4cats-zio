@@ -9,7 +9,7 @@ object Dependencies {
     val trace4cats = "0.13.1+93-3b55f15a"
 
     val catsEffect = "3.3.14"
-    val zioInteropCats = "3.2.9.1"
+    val zioInteropCats = "3.3.0"
 
     val kindProjector = "0.13.2"
     val betterMonadicFor = "0.3.1"
