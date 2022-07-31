@@ -12,8 +12,8 @@
 Add it to your `build.sbt`:
 
 ```scala
-"io.janstenpickle" %% "trace4cats-base-zio" % "0.13.1"
-"io.janstenpickle" %% "trace4cats-inject-zio" % "0.13.1"
+"io.janstenpickle" %% "trace4cats-zio" % "0.14.0"
+"io.janstenpickle" %% "trace4cats-context-utils-zio" % "0.14.0"
 ```
 
 ## Contributing
