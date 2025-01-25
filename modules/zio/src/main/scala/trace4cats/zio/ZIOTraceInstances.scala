@@ -10,7 +10,7 @@ trait ZIOTraceInstances {
 }
 
 trait ZIOHasTraceInstances {
-  implicit def spannedEnvRIOTrace[
-    R <: Clock with Blocking with Has[Span[RIO[Clock with Blocking, *]]]
-  ]: SpannedEnvRIOTracer[R] = new SpannedEnvRIOTracer[R]
+  implicit def spannedEnvRIOTrace[R <: Clock with Blocking with Has[
+    Span[RIO[Clock with Blocking, *]]
+  ]]: SpannedEnvRIOTracer[R] = new SpannedEnvRIOTracer[R]
 }
